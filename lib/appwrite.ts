@@ -11,6 +11,16 @@ export const config = {
   storageId: "66355aed003d7d4f3054",
 };
 
+const {
+  endpoint,
+  platform,
+  projectId,
+  databaseId,
+  userCollectionId,
+  videoCollectionId,
+  storageId,
+} = config;
+
 const client = new Client();
 
 client
@@ -68,12 +78,12 @@ export const signIn = async (email, password) => {
 export const getCurrentUser = async () => {
   try {
     const currentAccount = await account.get();
-    
+
     if (!currentAccount) throw Error;
 
     const currentUser = await database.listDocuments(
-      config.databaseId,
-      config.userCollectionId,
+      databaseId,
+      userCollectionId,
       [Query.equal("accountId", currentAccount.$id)],
     );
 
@@ -84,3 +94,17 @@ export const getCurrentUser = async () => {
     throw new Error(error);
   }
 };
+
+export const getAllPosts = async () => {
+  try {
+    const posts = await database.listDocuments(databaseId, videoCollectionId);
+
+    if (!posts) throw Error;
+
+    return posts.documents;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+
