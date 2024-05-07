@@ -126,8 +126,6 @@ export const searchPosts = async (query) => {
     const posts = await database.listDocuments(databaseId, videoCollectionId, [
       Query.search("title", query),
     ]);
-    console.log("called");
-    // console.log(posts);
 
     if (!posts) throw Error;
 

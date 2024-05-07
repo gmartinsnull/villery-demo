@@ -12,9 +12,9 @@ const Search = () => {
   const { query } = useLocalSearchParams();
   const { data: posts, refetch } = useAppWrite(() => searchPosts(query));
 
-  // useEffect(() => {
-  //   refetch();
-  // }, [query]);
+  useEffect(() => {
+    refetch();
+  }, [query]);
 
   return (
     <SafeAreaView className="h-full border-2 bg-primary">
