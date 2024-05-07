@@ -53,13 +53,7 @@ const Home = () => {
                 />
               </View>
             </View>
-            <SearchInput
-              title={undefined}
-              value={undefined}
-              placeholder={undefined}
-              handleTextChange={undefined}
-              otherStyles={undefined}
-            />
+            <SearchInput initialQuery={undefined} />
             <View>
               <Text className="mb-3 font-pregular text-lg text-gray-100">
                 Latest Videos

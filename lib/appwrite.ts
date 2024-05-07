@@ -120,3 +120,19 @@ export const getLatestPosts = async () => {
     throw new Error(error);
   }
 };
+
+export const searchPosts = async (query) => {
+  try {
+    const posts = await database.listDocuments(databaseId, videoCollectionId, [
+      Query.search("title", query),
+    ]);
+    console.log("called");
+    // console.log(posts);
+
+    if (!posts) throw Error;
+
+    return posts.documents;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
