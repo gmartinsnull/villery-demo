@@ -9,6 +9,7 @@ import { getCurrentUser, signIn } from "../../lib/appwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
+  const { setUser, setIsLoggedIn } = useGlobalContext();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -16,11 +17,9 @@ const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submit = async () => {
-    const { setUser, setIsLoggedIn } = useGlobalContext();
     if (form.email === "" || form.password === "") {
       Alert.alert("Error", "Please fill all fields");
     }
-
     setIsSubmitting(true);
 
     try {
