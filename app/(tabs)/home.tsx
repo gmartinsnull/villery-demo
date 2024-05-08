@@ -12,7 +12,7 @@ import images from "../../constants/images";
 import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import EmptyState from "../../components/EmptyState";
-import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
+import { bookmarkVideo, getAllPosts, getLatestPosts } from "../../lib/appwrite";
 import useAppWrite from "../../lib/useAppWrite";
 import VideoCard from "../../components/VideoCard";
 import { useGlobalContext } from "../../context/GlobalProvider";
@@ -30,12 +30,24 @@ const Home = () => {
     setRefreshing(false);
   };
 
+  const saveVideo = async (videoId: string) => {
+    try {
+      await bookmarkVideo(videoId, false);
+
+      onRefresh();
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    }
+  };
+
   return (
     <SafeAreaView className="h-full border-2 bg-primary">
       <FlatList
         data={posts}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <VideoCard video={item} />}
+        renderItem={({ item }) => (
+          <VideoCard video={item} handleBookbark={() => saveVideo(item.$id)} />
+        )}
         ListHeaderComponent={() => (
           <View className="my-6 space-y-6 px-4">
             <View className="mb-6 flex-row items-start justify-between">

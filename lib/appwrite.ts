@@ -244,3 +244,35 @@ export const createVideo = async (form) => {
     throw new Error(error);
   }
 };
+
+export const bookmarkVideo = async (videoId, isBookmarked) => {
+  try {
+    const result = await database.updateDocument(
+      databaseId,
+      videoCollectionId,
+      videoId,
+      {
+        saved: !isBookmarked,
+      },
+    );
+
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const getSavedVideos = async (userId) => {
+  try {
+    const posts = await database.listDocuments(databaseId, videoCollectionId, [
+      Query.equal("creator", userId),
+      Query.equal("saved", true),
+    ]);
+
+    if (!posts) throw Error;
+
+    return posts.documents;
+  } catch (error) {
+    throw new Error(error);
+  }
+};

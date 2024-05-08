@@ -9,7 +9,9 @@ const VideoCard = ({
     thumbnail,
     video,
     creator: { name, avatar },
+    saved,
   },
+  handleBookbark,
 }) => {
   const [play, setPlay] = useState(false);
 
@@ -73,6 +75,18 @@ const VideoCard = ({
             className="absolute h-12 w-12"
             resizeMode="contain"
           />
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={handleBookbark} 
+            className="absolute right-1 top-3 h-10 w-10"
+          >
+            <Image
+              source={icons.bookmark}
+              className="h-full w-full fill-white"
+              resizeMode="contain"
+              tintColor={saved ? "#00E676" : "#FFFFFF"}
+            />
+          </TouchableOpacity>
         </TouchableOpacity>
       )}
     </View>
