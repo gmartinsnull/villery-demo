@@ -39,7 +39,10 @@ const SignIn = () => {
 
   return (
     <SafeAreaView className="h-full bg-primary">
-      <ScrollView>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="interactive"
+      >
         <View className="my-6 min-h-[85vh] w-full justify-center px-4">
           <Image
             source={images.logo}
