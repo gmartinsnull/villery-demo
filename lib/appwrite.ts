@@ -105,7 +105,9 @@ export const getCurrentUser = async () => {
 
 export const getAllPosts = async () => {
   try {
-    const posts = await database.listDocuments(databaseId, videoCollectionId);
+    const posts = await database.listDocuments(databaseId, videoCollectionId, [
+      Query.orderDesc("$createdAt"),
+    ]);
 
     if (!posts) throw Error;
 
@@ -197,7 +199,12 @@ export const uploadFile = async (file, type) => {
   if (!file) return;
 
   const { mimeType, ...rest } = file;
-  const asset = { type: mimeType, ...rest };
+  const asset = {
+    name: file.fileName,
+    type: file.mimeType,
+    size: file.fileSize,
+    uri: file.uri,
+  };
 
   try {
     const uploadedFileId = await storage.createFile(
